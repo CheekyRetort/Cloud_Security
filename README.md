@@ -5,18 +5,17 @@ The files in this repository were used to configure the network depicted below.
 
 ![TODO: Update the path with the name of your diagram](Diagrams/Network_Map.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the configuration file may be used to install only certain pieces of it, such as Filebeat.
 
-  - _TODO: Enter the playbook file._
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the configuration file may be used to install only certain pieces of it, such as Filebeat. 
 
 This document contains the following details:
 - Description of the Topology
 - Access Policies
+- Configuring the DVWA container 
 - ELK Configuration
   - Beats in Use
   - Machines Being Monitored
 - How to Use the Ansible Build
-
 
 ### Description of the Topology
 
@@ -55,10 +54,50 @@ A summary of the access policies in place can be found in the table below.
 | Web-2                 | No                  | 10.0.0.1-254         |
 | Cadger_Imposing (ELK) | No                  | 10.0.0.1-254         |
 
-### Elk Configuration
+### Configuring the DVWA container 
 
 The jumpbox was configured with ansible to enable infastructure as code.  It automates the tasks of getting the servers up and running by a simple command.  This enables us to expand quickly as our network grows or, in case of errors, repair virtual machines. 
 
+The playbook implements the following tasks:
+- Configure Elk VM with Docker by using the apt module to install docker.io and python3-pip.
+- Use the pip module to install the Python Docker module.
+- Use the command module to increase the virtual memory and the systemctl module to use that newly availiable memory.
+- Download and launch the docker D*mn Vulnerable Web Application web container
+- Use systemd module to enable docker to run on boot. 
+- The Playbook is duplicated below:
+
+```yaml
+---
+- name: Configure Web VM with Docker
+  hosts: webserver
+  become: true
+  tasks:
+  - name: Install docker.io
+    apt:
+       update_cache: yes
+       name: docker.io
+       state: present
+  - name: Install pip3
+    apt:
+      name: python3-pip
+      state: present
+  - name: Install Docker python module
+    pip:
+      name: docker
+      state: present
+  - name: Download and launch a docker web container
+    docker_container:
+      name: dvwa
+      image: cyberxsecurity/dvwa
+      state: started
+      restart_policy: always
+      published_ports: 80:80
+  - name: Enable Docker service
+    systemd:
+      name: docker
+      enabled: yes
+```
+### Elk Configuration
 
 The playbook implements the following tasks:
 - Configure Elk VM with Docker by using the apt module to install docker.io and python3-pip.
