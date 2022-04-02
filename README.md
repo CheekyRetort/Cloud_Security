@@ -69,9 +69,11 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![TODO: Update the path with the name of your screenshot of docker ps output](Diagrams/docker_ps_output.png)
 
 - The Playbook is duplicated below:
+
+![TODO: Update the path with the YAML](Ansible/install-elk.yaml)
 
 ---
 - name: Configure Elk VM with Docker
