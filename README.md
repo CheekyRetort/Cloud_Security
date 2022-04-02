@@ -61,7 +61,7 @@ The jumpbox was configured with ansible to enable infastructure as code.  It aut
 The playbook implements the following tasks:
 - Configure the VM with Docker by using the apt module to install docker.io and python3-pip.
 - Use the pip module to install the Python Docker module.
-- Download and launch the docker D*mn Vulnerable Web Application web container
+- Download and launch the docker D*mn Vulnerable Web Application web container.
 - Use systemd module to enable docker to run on boot. 
 
 - The Playbook is duplicated below:
