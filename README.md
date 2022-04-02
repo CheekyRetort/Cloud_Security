@@ -59,11 +59,11 @@ A summary of the access policies in place can be found in the table below.
 The jumpbox was configured with ansible to enable infastructure as code.  It automates the tasks of getting the servers up and running by a simple command.  This enables us to expand quickly as our network grows or, in case of errors, repair virtual machines. 
 
 The playbook implements the following tasks:
-- Configure Elk VM with Docker by using the apt module to install docker.io and python3-pip.
+- Configure the VM with Docker by using the apt module to install docker.io and python3-pip.
 - Use the pip module to install the Python Docker module.
-- Use the command module to increase the virtual memory and the systemctl module to use that newly availiable memory.
 - Download and launch the docker D*mn Vulnerable Web Application web container
 - Use systemd module to enable docker to run on boot. 
+
 - The Playbook is duplicated below:
 
 ```yaml
