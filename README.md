@@ -69,7 +69,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Diagrams/Docker_ps_Output.jpg)
+![TODO: Update the path with the name of your screenshot of docker ps output](Diagrams/Docker_ps_Output.png)
 
 - The Playbook is duplicated below:
 
@@ -149,6 +149,7 @@ These Beats allow us to collect the following information from each machine:
 
 I combined the installation of fileBeat and metricBeat into one playbook which is duplicated below:
 
+```yaml
 ---
 - name: installing and launching filebeat and metricbeat
   hosts: webservers
@@ -206,6 +207,7 @@ I combined the installation of fileBeat and metricBeat into one playbook which i
     systemd:
       name: metricbeat
       enabled: yes
+```
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
@@ -230,18 +232,21 @@ Run each playbook on the appropriate targets
 
 The easiest way to copy the playbooks is to use Git:
 
+```console
 $ cd /etc/ansible
 $ mkdir files
 # Clone Repository + IaC Files
-$ git clone https://github.com/yourusername/project-1.git
+$ git clone https://github.com/CheekyRetort/Cloud_Security.git
 # Move Playbooks and hosts file Into `/etc/ansible`
 $ cp project-1/playbooks/* .
 $ cp project-1/files/* ./files
+```
 
 
 This copies the playbook files to the correct place.
 Next, you must create a hosts file to specify which VMs to run each playbook on. Run the commands below:
 
+```console
 $ cd /etc/ansible
 $ cat > hosts <<EOF
 [webservers]
@@ -251,13 +256,15 @@ $ cat > hosts <<EOF
 [elk]
 10.1.0.4
 EOF
-
+```
 
 After this, the commands below run the playbook:
 
+```console
 $ cd /etc/ansible
 $ ansible-playbook install-elk.yml elk
 $ ansible-playbook Inistall-FileBeat_MetricBeat.yml webservers
+```
 
 To verify success, wait five minutes to give ELK time to start up.
 Then, run: curl http://10.1.0.4:5601. This is the address of Kibana. If the installation succeeded, this command should print HTML to the console.
