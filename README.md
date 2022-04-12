@@ -253,14 +253,9 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the playbook file to ansible control node.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
-
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
-
+- Update the Hosts file to include the ip Addresses.
+- Run the playbook, and navigate to /etc/ansible to check that the installation worked as expected.
+- Specify which Machines Ansible will run on by simply editing the hosts file located in /etc/ansible/hosts.  Make sure that the "webservers" has the correct IP addresses listed and that under "ELk" you have the correct IP listed for that machine as well.
 
 In order to use the playbooks, you will need to have an Ansible control node already configured. We use the jump box for this purpose.
 To use the playbooks, we must perform the following steps:
@@ -277,8 +272,7 @@ $ mkdir files
 # Clone Repository + IaC Files
 $ git clone https://github.com/CheekyRetort/Cloud_Security.git
 # Move Playbooks and hosts file Into `/etc/ansible`
-$ cp project-1/playbooks/* .
-$ cp project-1/files/* ./files
+$ cp Cloud_Security/Ansible/* .
 ```
 
 
@@ -306,4 +300,4 @@ $ ansible-playbook Inistall-FileBeat_MetricBeat.yml webservers
 ```
 
 To verify success, wait five minutes to give ELK time to start up.
-Then, run: curl http://10.1.0.4:5601. This is the address of Kibana. If the installation succeeded, this command should print HTML to the console.
+Navigate to http://[your.ELK-VM.External.IP]:5601/app/kibana and then if everything is configured it should load the web page.
